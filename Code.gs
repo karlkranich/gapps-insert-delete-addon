@@ -71,7 +71,7 @@ function shiftUp() {
     sheet.getRange(lastRow - numRows + 1, col, numRows, numCols).clearContent();
   }
   catch(err) {
-    SpreadsheetApp.getActiveSpreadsheet().toast("Cannot shift cells up from the very bottom", "Error", -1);
+    SpreadsheetApp.getUi().alert('Select a different range: Cannot shift up from the last populated row of a sheet');
   }
 }
 
@@ -92,6 +92,6 @@ function shiftLeft() {
     sheet.getRange(row, lastCol - numCols + 1, numRows, numCols).clearContent();
   }
   catch(err) {
-    SpreadsheetApp.getActiveSpreadsheet().toast("Cannot shift cells left from the far right", "Error", -1);
+    SpreadsheetApp.getUi().alert('Select a different range: Cannot shift left from the last populated column of a sheet');
   }
 }
