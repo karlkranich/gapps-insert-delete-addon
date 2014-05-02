@@ -34,8 +34,13 @@ function shiftDown() {
   var numRows = range.getNumRows();
   var numCols = range.getNumColumns();
   var lastRow = sheet.getLastRow();
-  sheet.getRange(row, col, lastRow - row + 1, numCols).copyTo(sheet.getRange(row + numRows, col, lastRow - row + 1, numCols));
-  range.clearContent();
+  try {
+    sheet.getRange(row, col, lastRow - row + 1, numCols).copyTo(sheet.getRange(row + numRows, col, lastRow - row + 1, numCols));
+    range.clearContent();
+  }
+  catch(err) {
+    SpreadsheetApp.getUi().alert('Could not move data: Please make sure nobody else is editing the column(s) and try again.');
+  }
 }
 
 /**
@@ -50,8 +55,13 @@ function shiftRight() {
   var numRows = range.getNumRows();
   var numCols = range.getNumColumns();
   var lastCol = sheet.getLastColumn();
-  sheet.getRange(row, col, numRows, lastCol - col + 1).copyTo(sheet.getRange(row, col + numCols, numRows, lastCol - col + 1));
-  range.clearContent();
+  try {
+    sheet.getRange(row, col, numRows, lastCol - col + 1).copyTo(sheet.getRange(row, col + numCols, numRows, lastCol - col + 1));
+    range.clearContent();
+  }
+  catch (err) {
+    SpreadsheetApp.getUi().alert('Could not move data: Please make sure nobody else is editing the row(s) and try again.');
+  }
 }
 
 /**
@@ -71,7 +81,11 @@ function shiftUp() {
     sheet.getRange(lastRow - numRows + 1, col, numRows, numCols).clearContent();
   }
   catch(err) {
-    SpreadsheetApp.getUi().alert('Select a different range: Cannot shift up from the last populated row of a sheet');
+    if (row + numRows > lastRow) {
+      SpreadsheetApp.getUi().alert('Select a different range: Cannot shift up from the last populated row of a sheet.');
+    } else {
+      SpreadsheetApp.getUi().alert('Could not move data: Please make sure nobody else is editing the column(s) and try again.');
+    }
   }
 }
 
@@ -92,6 +106,10 @@ function shiftLeft() {
     sheet.getRange(row, lastCol - numCols + 1, numRows, numCols).clearContent();
   }
   catch(err) {
-    SpreadsheetApp.getUi().alert('Select a different range: Cannot shift left from the last populated column of a sheet');
+    if (col + numCols > lastCol) {
+      SpreadsheetApp.getUi().alert('Select a different range: Cannot shift left from the last populated column of a sheet.');
+    } else {
+      SpreadsheetApp.getUi().alert('Could not move data: Please make sure nobody else is editing the row(s) and try again.');
+    }
   }
 }
