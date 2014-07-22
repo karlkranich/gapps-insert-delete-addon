@@ -1,18 +1,14 @@
 /**
- * Creates menu entries in the Sheets UI when the document is opened.
+ * Creates Add-on menu entries when the document is opened.
  */
-function onOpen() {
-   var ss = SpreadsheetApp.getActive();
-   var items = [
-      {name: 'Shift Down', functionName: 'shiftDown'},
-      {name: 'Shift Right', functionName: 'shiftRight'}
-   ];
-   ss.addMenu('Insert Cells', items);
-   var items = [
-      {name: 'Shift Up', functionName: 'shiftUp'},
-      {name: 'Shift Left', functionName: 'shiftLeft'}
-   ];
-   ss.addMenu('Delete Cells', items);
+function onOpen(e) {
+  var ui = SpreadsheetApp.getUi();
+  ui.createAddonMenu()
+      .addItem('Insert - Shift Down', 'shiftDown')
+      .addItem('Insert - Shift Right', 'shiftRight')
+      .addItem('Delete - Shift Up', 'shiftUp')
+      .addItem('Delete - Shift Left', 'shiftLeft')
+      .addToUi();
 }
 
 /**
