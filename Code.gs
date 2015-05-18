@@ -1,5 +1,5 @@
 /**
- * Creates Add-on menu entries when the document is opened.
+ * Creates menu entries in the Sheets UI when the document is opened.
  */
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
@@ -31,7 +31,7 @@ function shiftDown() {
   var numCols = range.getNumColumns();
   var lastRow = sheet.getLastRow();
   try {
-    sheet.getRange(row, col, lastRow - row + 1, numCols).copyTo(sheet.getRange(row + numRows, col, lastRow - row + 1, numCols));
+    sheet.getRange(row, col, lastRow - row + 1, numCols).moveTo(sheet.getRange(row + numRows, col, lastRow - row + 1, numCols));
     range.clearContent();
   }
   catch(err) {
@@ -52,7 +52,7 @@ function shiftRight() {
   var numCols = range.getNumColumns();
   var lastCol = sheet.getLastColumn();
   try {
-    sheet.getRange(row, col, numRows, lastCol - col + 1).copyTo(sheet.getRange(row, col + numCols, numRows, lastCol - col + 1));
+    sheet.getRange(row, col, numRows, lastCol - col + 1).moveTo(sheet.getRange(row, col + numCols, numRows, lastCol - col + 1));
     range.clearContent();
   }
   catch (err) {
@@ -73,7 +73,7 @@ function shiftUp() {
   var numCols = range.getNumColumns();
   var lastRow = sheet.getLastRow();
   try {
-    sheet.getRange(row + numRows, col, lastRow - row - numRows + 1, numCols).copyTo(sheet.getRange(row, col, lastRow - row - numRows + 1, numCols));
+    sheet.getRange(row + numRows, col, lastRow - row - numRows + 1, numCols).moveTo(sheet.getRange(row, col, lastRow - row - numRows + 1, numCols));
     sheet.getRange(lastRow - numRows + 1, col, numRows, numCols).clearContent();
   }
   catch(err) {
@@ -98,7 +98,7 @@ function shiftLeft() {
   var numCols = range.getNumColumns();
   var lastCol = sheet.getLastColumn();
   try {
-    sheet.getRange(row, col + numCols, numRows, lastCol - col - numCols + 1).copyTo(sheet.getRange(row, col, numRows, lastCol - col - numCols + 1));
+    sheet.getRange(row, col + numCols, numRows, lastCol - col - numCols + 1).moveTo(sheet.getRange(row, col, numRows, lastCol - col - numCols + 1));
     sheet.getRange(row, lastCol - numCols + 1, numRows, numCols).clearContent();
   }
   catch(err) {
